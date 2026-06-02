@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Users, Smile, Zap, Award } from "lucide-react";
+import { Users, Zap, Award } from "lucide-react";
 
 export default function WhyChooseUs() {
   const stats = [

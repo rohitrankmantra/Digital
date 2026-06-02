@@ -8,7 +8,6 @@ interface ServiceCardProps {
   title: string;
   description: string;
   items: string[];
-  gradient: string;
 }
 
 export default function ServiceCard({
@@ -16,7 +15,6 @@ export default function ServiceCard({
   title,
   description,
   items,
-  gradient,
 }: ServiceCardProps) {
   return (
     <motion.div

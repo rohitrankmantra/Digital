@@ -19,9 +19,6 @@ import {
   Briefcase,
   CheckCircle2,
   Sparkles,
-  Zap,
-  Target,
-  Layers,
   Plus,
   Minus,
   Clock,
@@ -491,7 +488,7 @@ export default function Home() {
               ( FREQUENTLY ASKED QUESTIONS )
             </p>
             <h2 className="text-5xl md:text-6xl font-black mb-6">
-              Questions? We've Got <span className="gradient-text">Answers</span>
+              Questions? We&apos;ve Got <span className="gradient-text">Answers</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Explore our FAQ section to find answers to common questions about our services and processes
@@ -728,10 +725,10 @@ export default function Home() {
                   Get in Touch
                 </p>
                 <h2 className="text-5xl md:text-6xl font-bold mb-6">
-                  Let's Start Your <span className="gradient-text">Project</span>
+                  Let&apos;s Start Your <span className="gradient-text">Project</span>
                 </h2>
                 <p className="text-gray-400 text-lg mb-10 leading-relaxed">
-                  Ready to take your digital presence to the next level? Drop us a message and we'll get back to you within 24 hours.
+                  Ready to take your digital presence to the next level? Drop us a message and we&apos;ll get back to you within 24 hours.
                 </p>
 
                 <div className="space-y-6 mb-10">
