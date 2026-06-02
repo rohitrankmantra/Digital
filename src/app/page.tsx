@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import TestimonialSlider from "@/components/TestimonialSlider";
@@ -12,6 +12,7 @@ import {
   Twitter,
   Mail,
   Phone,
+  ArrowLeft,
   MapPin,
   Send,
   TrendingUp,
@@ -24,7 +25,10 @@ import {
   Clock,
   Calendar,
   ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
+import { FaSearch, FaCode, FaShareAlt, FaCamera } from "react-icons/fa";
 
 // FAQ Data
 const faqs = [
@@ -99,17 +103,196 @@ const blogs = [
   },
 ];
 
-// Services for marquee
-const marqueeServices = [
-  "Website Development",
-  "Digital Marketing",
-  "Brand Identity",
-  "SEO Services",
-  "Social Media",
-  "Content Strategy",
-  "Performance Marketing",
-  "UI/UX Design",
-];
+// Services Slider Component
+const ServicesSlider = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  const allServices = [
+    {
+      category: "SEO Services",
+      icon: <FaSearch size={28} />,
+      services: [
+        { name: "SEO Strategy", desc: "Comprehensive SEO Services", image: "https://images.unsplash.com/photo-1487014679447-9f833a700284?auto=format&fit=crop&w=800&q=80" },
+        { name: "One Page SEO", desc: "Single Page Optimization", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" },
+        { name: "Off Page SEO", desc: "Backlink Building & Authority", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" },
+        { name: "Technical SEO", desc: "Site Architecture & Performance", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" },
+      ],
+    },
+    {
+      category: "Website Development",
+      icon: <FaCode size={28} />,
+      services: [
+        { name: "WordPress Development", desc: "Custom WP Sites", image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" },
+        { name: "Next.js Development", desc: "Modern Web Apps", image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" },
+        { name: "React.js Development", desc: "Interactive Experiences", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" },
+        { name: "Shopify Development", desc: "E-Commerce Solutions", image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" },
+      ],
+    },
+    {
+      category: "Social Media Handling",
+      icon: <FaShareAlt size={28} />,
+      services: [
+        { name: "Meta Ads", desc: "Facebook & Instagram Campaigns", image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80" },
+        { name: "Social Posts", desc: "Content Creation", image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=800&q=80" },
+        { name: "Reels Editing", desc: "Video Content", image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" },
+        { name: "Brand Identity", desc: "Logo & Catalogue Design", image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80" },
+      ],
+    },
+    {
+      category: "Photo Shoot",
+      icon: <FaCamera size={28} />,
+      services: [
+        { name: "Product Photography", desc: "Professional Product Shots", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80" },
+        { name: "Brand Photoshoot", desc: "Brand Story Visuals", image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" },
+        { name: "Event Coverage", desc: "Corporate & Social Events", image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" },
+        { name: "Video Production", desc: "Video Content Creation", image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80" },
+      ],
+    },
+  ];
+
+  const slideCount = allServices.length;
+
+  const nextSlide = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % slideCount);
+  };
+
+  const prevSlide = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + slideCount) % slideCount);
+  };
+
+  const goToSlide = (index: number) => {
+    setDirection(index > currentIndex ? 1 : -1);
+    setCurrentIndex(index);
+  };
+
+  // Auto-advance slides
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 12000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.95,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.95,
+    }),
+  };
+
+  const currentCategory = allServices[currentIndex];
+
+  return (
+    <div className="relative">
+      {/* Main Slider */}
+      <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl">
+        <AnimatePresence initial={false} custom={direction} mode="wait">
+          <motion.div
+            key={currentIndex}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "tween", duration: 0.8, ease: "easeInOut" },
+              opacity: { duration: 0.6 },
+              scale: { duration: 0.6 },
+            }}
+            className="p-8"
+          >
+            {/* Category Header */}
+            <div className="flex items-center gap-4 mb-8 pb-6 border-b border-white/10">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white shadow-lg shadow-red-500/20">
+                {currentCategory.icon}
+              </div>
+              <div>
+                <h3 className="text-3xl font-black text-white font-[Montserrat]">
+                  {currentCategory.category}
+                </h3>
+                <p className="text-gray-400 text-sm">Expert solutions to elevate your business</p>
+              </div>
+            </div>
+
+            {/* Services Grid */}
+            <div className="grid sm:grid-cols-2 gap-6">
+              {currentCategory.services.map((service, idx) => (
+                <motion.div
+                  key={service.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  whileHover={{ y: -4 }}
+                  className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-white/5 to-white/0 border border-white/10 hover:border-red-500/30 transition-all duration-300"
+                >
+                  <div className="p-5">
+                    <div className="relative rounded-xl overflow-hidden mb-4 h-40">
+                      <img
+                        src={service.image}
+                        alt={service.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                    </div>
+                    <h4 className="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">
+                      {service.name}
+                    </h4>
+                    <p className="text-gray-400 text-sm mb-4">{service.desc}</p>
+                    <button className="flex items-center gap-2 text-sm font-semibold text-red-400 hover:text-red-300 transition-colors">
+                      Learn More <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 backdrop-blur-xl border border-white/20 text-white hover:bg-red-500 hover:border-red-500/50 transition-all duration-300 flex items-center justify-center z-10 hover:scale-110"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 backdrop-blur-xl border border-white/20 text-white hover:bg-red-500 hover:border-red-500/50 transition-all duration-300 flex items-center justify-center z-10 hover:scale-110"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
+
+      {/* Dot Indicators */}
+      <div className="flex justify-center gap-3 mt-8">
+        {allServices.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => goToSlide(idx)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              idx === currentIndex
+                ? "w-10 bg-gradient-to-r from-red-500 to-orange-500"
+                : "bg-white/20 hover:bg-white/40"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default function Home() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -151,7 +334,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-black leading-[0.92] mb-6 max-w-4xl"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5rem] font-black leading-[0.92] mb-6 max-w-4xl"
               >
                 <span className="block text-white/80 text-lg md:text-xl font-semibold tracking-[0.3em] uppercase mb-5">
                   Strategy, design, growth
@@ -220,127 +403,40 @@ export default function Home() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="relative lg:pl-10"
             >
-              <div className="relative rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] overflow-hidden">
-                <div className="absolute inset-0 bg-pattern-diagonal opacity-10 pointer-events-none" />
-                <div className="grid gap-4">
-                  <div className="relative rounded-[1.75rem] overflow-hidden min-h-[28rem] border border-white/10">
-                    <img
-                      src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80"
-                      alt="Marketing analytics workspace"
-                      className="h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
-
-                    <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-                      <span className="rounded-full border border-white/15 bg-black/40 px-3 py-1 text-xs text-white/90 backdrop-blur-xl">Live SEO</span>
-                      <span className="rounded-full border border-white/15 bg-black/40 px-3 py-1 text-xs text-white/90 backdrop-blur-xl">Paid Ads</span>
-                      <span className="rounded-full border border-white/15 bg-black/40 px-3 py-1 text-xs text-white/90 backdrop-blur-xl">Brand System</span>
-                    </div>
-
-                    <div className="absolute bottom-4 left-4 right-4 grid gap-4 md:grid-cols-[1.1fr_0.9fr]">
-                      <motion.div
-                        whileHover={{ y: -4 }}
-                        className="rounded-[1.5rem] border border-white/15 bg-black/50 backdrop-blur-xl p-5"
-                      >
-                        <div className="flex items-center justify-between gap-4 mb-4">
-                          <div>
-                            <p className="text-xs uppercase tracking-[0.24em] text-gray-400">Performance snapshot</p>
-                            <h3 className="text-2xl font-bold text-white mt-2">Conversion Stack</h3>
-                          </div>
-                          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center">
-                            <TrendingUp size={22} className="text-white" />
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-3 gap-3">
-                          <div className="rounded-2xl bg-white/6 p-3 text-center border border-white/10">
-                            <p className="text-lg font-bold text-white">+312%</p>
-                            <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400">Traffic</p>
-                          </div>
-                          <div className="rounded-2xl bg-white/6 p-3 text-center border border-white/10">
-                            <p className="text-lg font-bold text-white">+189%</p>
-                            <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400">Leads</p>
-                          </div>
-                          <div className="rounded-2xl bg-white/6 p-3 text-center border border-white/10">
-                            <p className="text-lg font-bold text-white">+245%</p>
-                            <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400">Revenue</p>
-                          </div>
-                        </div>
-                      </motion.div>
-
-                      <motion.div
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ duration: 5, repeat: Infinity }}
-                        className="rounded-[1.5rem] border border-white/15 bg-black/50 backdrop-blur-xl p-5"
-                      >
-                        <p className="text-xs uppercase tracking-[0.24em] text-gray-400 mb-3">Brand note</p>
-                        <p className="text-xl font-semibold text-white leading-snug">
-                          Sharp visuals, clear structure, and motion that actually earns attention.
-                        </p>
-                        <div className="mt-4 h-2 rounded-full bg-white/10 overflow-hidden">
-                          <div className="h-full w-[74%] rounded-full bg-gradient-to-r from-red-500 to-orange-400" />
-                        </div>
-                        <p className="mt-2 text-sm text-gray-400">Signal strength: 74%</p>
-                      </motion.div>
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <motion.div
-                      whileHover={{ y: -4 }}
-                      className="rounded-[1.5rem] overflow-hidden border border-white/10 relative min-h-44"
-                    >
-                      <img
-                        src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1200&q=80"
-                        alt="Creative design team"
-                        className="h-full w-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                      <div className="absolute inset-x-0 bottom-0 p-4">
-                        <p className="text-sm font-semibold text-white">Creative direction</p>
-                        <p className="text-xs text-gray-300">A premium visual layer for the brand story</p>
-                      </div>
-                    </motion.div>
-
-                    <motion.div
-                      whileHover={{ y: -4 }}
-                      className="rounded-[1.5rem] border border-white/10 bg-white/5 backdrop-blur-xl p-5 flex flex-col justify-between min-h-44"
-                    >
-                      <div>
-                        <p className="text-xs uppercase tracking-[0.24em] text-gray-400 mb-3">Focus areas</p>
-                        <div className="space-y-3 text-sm text-gray-300">
-                          <div className="flex items-center justify-between border-b border-white/10 pb-2"><span>SEO architecture</span><span className="text-red-300">92</span></div>
-                          <div className="flex items-center justify-between border-b border-white/10 pb-2"><span>Paid media</span><span className="text-red-300">88</span></div>
-                          <div className="flex items-center justify-between"><span>Conversion UX</span><span className="text-red-300">95</span></div>
-                        </div>
-                      </div>
-                      <p className="text-xs text-gray-400 mt-4">A compact dashboard-style visual to make the hero feel less like a banner and more like a product story.</p>
-                    </motion.div>
-                  </div>
-                </div>
+              <div className="relative rounded-[2.5rem] border border-white/10 overflow-hidden h-[500px] md:h-[600px]">
+                <img
+                  src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1400&q=80"
+                  alt="AI and technology concept"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
               </div>
-
-              <motion.div
-                animate={{ y: [0, -15, 0], x: [0, 10, 0] }}
-                transition={{ duration: 5, repeat: Infinity }}
-                className="absolute -bottom-5 -left-4 md:-left-10 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 rounded-2xl p-4 shadow-2xl max-w-xs border border-white/10"
-              >
-                <p className="text-xs uppercase tracking-[0.24em] text-white/70 mb-2">Client growth</p>
-                <p className="text-white font-bold text-lg">450% ROI Increase</p>
-                <p className="text-sm text-white/70 mt-1">Across search, paid, and conversion layers.</p>
-              </motion.div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* =============== SERVICES/FEATURES SECTION =============== */}
+      {/* =============== SERVICES SLIDER SECTION =============== */}
       <section id="services" className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
+          {/* Background gradient blobs */}
           <div className="absolute -top-32 left-[-6rem] w-[32rem] h-[32rem] rounded-full bg-red-500/20 blur-3xl" />
-          <div className="absolute bottom-[-10rem] right-[-6rem] w-[28rem] h-[28rem] rounded-full bg-red-500/10 blur-3xl" />
+          <div className="absolute bottom-[-10rem] right-[-6rem] w-[28rem] h-[28rem] rounded-full bg-orange-500/15 blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] rounded-full bg-blue-500/8 blur-3xl" />
+          
+          {/* Background pattern overlay */}
+          <div className="absolute inset-0 bg-pattern-grid opacity-[0.4]" />
+          <div className="absolute inset-0 bg-pattern-dots opacity-[0.08]" />
+          
+          {/* Subtle background image */}
+          <div className="absolute inset-0 opacity-5">
+            <img 
+              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80" 
+              alt="Abstract background" 
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
-        <div className="absolute inset-0 bg-pattern-grid opacity-[0.10]" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div
@@ -351,93 +447,21 @@ export default function Home() {
             className="text-center mb-16"
           >
             <p className="text-red-400 font-semibold text-sm uppercase tracking-widest mb-4">
-              ( OUR FEATURES )
+              ( OUR SERVICES )
             </p>
-            <h2 className="text-5xl md:text-6xl font-black mb-6">
-              Best Features, Email With <span className="gradient-text">Relations</span>
+            <h2 className="text-4xl md:text-5xl font-black mb-6">
+              Premium Services That <span className="gradient-text">Drive Growth</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+              Comprehensive digital solutions tailored to transform your brand and accelerate your business growth.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Website Development",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. tellus, luctus nec ullamcorper.",
-                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80",
-                category: "Website",
-              },
-              {
-                title: "Digital Marketing",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. tellus, luctus nec ullamcorper.",
-                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
-                category: "Advertising",
-              },
-              {
-                title: "Brand Identity",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. tellus, luctus nec ullamcorper.",
-                image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80",
-                category: "Branding",
-              },
-            ].map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.15 }}
-                whileHover={{ y: -8 }}
-                className="group relative rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-white/5 to-white/0 border border-white/10 hover:border-red-500/30 transition-all duration-300 backdrop-blur-xl"
-              >
-                <div className="p-2">
-                  <div className="relative rounded-[2rem] overflow-hidden mb-6">
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  </div>
-
-                  <div className="px-4 pb-6">
-                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-400 mb-6 leading-relaxed">
-                      {service.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="px-6 py-2 rounded-full bg-white/10 text-white font-semibold text-sm">
-                        {service.category}
-                      </span>
-                      <button className="flex items-center gap-2 text-gray-300 hover:text-white font-semibold text-sm transition-colors">
-                        Learn More →
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <ServicesSlider />
         </div>
       </section>
 
-      {/* =============== SERVICES MARQUEE =============== */}
-      <section className="py-10 relative overflow-hidden border-y border-white/10 bg-gradient-to-r from-black/50 to-black/30">
-        <div className="absolute inset-0 bg-pattern-grid opacity-[0.15]" />
-        <div className="relative overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap">
-            {[...marqueeServices, ...marqueeServices].map((service, index) => (
-              <div key={index} className="flex items-center gap-12 px-8 flex-shrink-0">
-                <span className="text-red-400 text-2xl font-bold">✦</span>
-                <span className="text-white text-xl font-semibold uppercase tracking-widest">{service}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* =============== WHY CHOOSE US SECTION =============== */}
       <WhyChooseUs />
@@ -456,7 +480,7 @@ export default function Home() {
             <p className="text-red-400 font-semibold text-sm uppercase tracking-widest mb-4">
               Testimonials
             </p>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Loved by Our Clients
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
@@ -487,7 +511,7 @@ export default function Home() {
             <p className="text-red-400 font-semibold text-sm uppercase tracking-widest mb-4">
               ( FREQUENTLY ASKED QUESTIONS )
             </p>
-            <h2 className="text-5xl md:text-6xl font-black mb-6">
+            <h2 className="text-4xl md:text-5xl font-black mb-6">
               Questions? We&apos;ve Got <span className="gradient-text">Answers</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
@@ -554,7 +578,7 @@ export default function Home() {
             <p className="text-red-400 font-semibold text-sm uppercase tracking-widest mb-4">
               ( OUR BLOG )
             </p>
-            <h2 className="text-5xl md:text-6xl font-black mb-6">
+            <h2 className="text-4xl md:text-5xl font-black mb-6">
               Latest Articles & <span className="gradient-text">Insights</span>
             </h2>
           </motion.div>
@@ -711,7 +735,7 @@ export default function Home() {
 
       {/* =============== CONTACT FORM SECTION =============== */}
       <section id="contact" className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-pattern-diagonal opacity-[0.08]" />
+        <div className="absolute inset-0 bg-pattern-diagonal opacity-[0.5]" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 items-start">
             <motion.div
@@ -724,7 +748,7 @@ export default function Home() {
                 <p className="text-red-400 font-semibold text-sm uppercase tracking-widest mb-4">
                   Get in Touch
                 </p>
-                <h2 className="text-5xl md:text-6xl font-bold mb-6">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">
                   Let&apos;s Start Your <span className="gradient-text">Project</span>
                 </h2>
                 <p className="text-gray-400 text-lg mb-10 leading-relaxed">

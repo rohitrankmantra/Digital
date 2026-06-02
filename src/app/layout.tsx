@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, DM_Sans } from "next/font/google";
+import { Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
 import FloatingContactWidget from "@/components/FloatingContactWidget";
 
@@ -10,9 +10,9 @@ const montserrat = Montserrat({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
-// Secondary font: DM Sans (body, content)
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+// Secondary font: Poppins (body, content)
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${montserrat.variable} ${dmSans.variable} antialiased`}>
+      <body className={`${montserrat.variable} ${poppins.variable} antialiased`}>
         {children}
         <FloatingContactWidget />
       </body>
