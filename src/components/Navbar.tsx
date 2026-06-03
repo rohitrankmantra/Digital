@@ -149,7 +149,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
           {/* Logo */}
-          <Link href="#" className="flex items-center gap-3 font-bold text-lg tracking-[0.2em] uppercase">
+          <Link href="/" className="flex items-center gap-3 font-bold text-lg tracking-[0.2em] uppercase">
             <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-red-500 via-red-600 to-orange-500 shadow-md">
               <div className="absolute inset-0 bg-[radial-gradient(circle at top left,rgba(255,255,255,0.35),transparent_55%)]" />
               <span className="absolute inset-0 flex items-center justify-center text-white font-black text-base">D</span>
@@ -161,6 +161,11 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1 rounded-full border border-white/5 bg-white/5 px-4 py-2 backdrop-blur-xl text-sm">
+            {/* Home Link */}
+            <Link href="/" className="rounded-full px-5 py-2.5 text-gray-200 hover:text-white hover:bg-white/10 transition-all font-[Montserrat] font-semibold">
+              Home
+            </Link>
+            
             {/* Services with Mega Menu */}
             <div
               className="relative group"
@@ -180,7 +185,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 15 }}
                     transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="absolute top-full left-0 mt-3 w-[950px] rounded-3xl bg-gradient-to-br from-gray-900 via-black to-gray-900 backdrop-blur-3xl border border-red-500/30 p-8 shadow-2xl overflow-hidden shadow-red-500/10"
+                    className="absolute top-full -left-20 mt-3 w-[950px] rounded-3xl bg-gradient-to-br from-gray-900 via-black to-gray-900 backdrop-blur-3xl border border-red-500/30 p-8 shadow-2xl overflow-hidden shadow-red-500/10"
                     style={{ transformOrigin: "top left" }}
                   >
                     {/* Background Effects */}
@@ -269,7 +274,7 @@ export default function Navbar() {
                     
                     <div className="relative z-10 space-y-2">
                       <Link
-                        href="#about"
+                        href="/about"
                         className="group/link block p-4 rounded-2xl hover:bg-white/5 transition-all border border-transparent hover:border-red-500/20"
                         onClick={() => setActiveMegaMenu(null)}
                       >
@@ -286,7 +291,7 @@ export default function Navbar() {
                       </Link>
                       
                       <Link
-                        href="#founder"
+                        href="/founder"
                         className="group/link block p-4 rounded-2xl hover:bg-white/5 transition-all border border-transparent hover:border-red-500/20"
                         onClick={() => setActiveMegaMenu(null)}
                       >
@@ -307,7 +312,7 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
             
-            <Link href="#contact" className="rounded-full px-5 py-2.5 text-gray-200 hover:text-white hover:bg-white/10 transition-all font-[Montserrat] font-semibold">
+            <Link href="/contact" className="rounded-full px-5 py-2.5 text-gray-200 hover:text-white hover:bg-white/10 transition-all font-[Montserrat] font-semibold">
               Contact
             </Link>
           </nav>
@@ -391,6 +396,13 @@ export default function Navbar() {
 
                 <div className="pt-4 space-y-2">
                   <Link 
+                    href="/" 
+                    onClick={() => setIsOpen(false)}
+                    className="block rounded-xl px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition-all font-[Montserrat] font-medium"
+                  >
+                    Home
+                  </Link>
+                  <Link 
                     href="#portfolio" 
                     onClick={() => setIsOpen(false)}
                     className="block rounded-xl px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition-all font-[Montserrat] font-medium"
@@ -431,7 +443,7 @@ export default function Navbar() {
                         >
                           <div className="pl-14 pr-2 py-2 space-y-1">
                             <Link
-                              href="#about"
+                              href="/about"
                               onClick={() => {
                                 setIsOpen(false);
                                 setMobileExpandedSection(null);
@@ -441,7 +453,7 @@ export default function Navbar() {
                               About the Company
                             </Link>
                             <Link
-                              href="#founder"
+                              href="/founder"
                               onClick={() => {
                                 setIsOpen(false);
                                 setMobileExpandedSection(null);
@@ -457,7 +469,7 @@ export default function Navbar() {
                   </div>
                   
                   <Link 
-                    href="#contact" 
+                    href="/contact" 
                     onClick={() => setIsOpen(false)}
                     className="block rounded-xl px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition-all font-[Montserrat] font-medium"
                   >

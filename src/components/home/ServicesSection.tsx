@@ -34,13 +34,13 @@ const ServicesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-red-400 font-semibold text-sm uppercase tracking-widest mb-4">
+          <p className="text-red-400 font-semibold text-xs uppercase tracking-[0.28em] mb-4">
             ( OUR SERVICES )
           </p>
-          <h2 className="text-4xl md:text-5xl font-black mb-6">
+          <h2 className="text-3xl md:text-4xl font-black mb-6">
             Premium Services That <span className="gradient-text">Drive Growth</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-base max-w-2xl mx-auto">
             Comprehensive digital solutions tailored to transform your brand and accelerate your business growth.
           </p>
         </motion.div>

@@ -2,35 +2,39 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
-import { X, Phone, MessageSquare, Mail, MessageCircle } from "lucide-react";
+import { X, Phone, Mail, MessageCircle, Sparkles } from "lucide-react";
 
 const FloatingContactWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const contacts = [
     {
-      icon: <FaWhatsapp size={24} />,
+      icon: <FaWhatsapp size={18} />,
       label: "WhatsApp",
       href: "https://wa.me/1234567890",
-      color: "bg-green-500 hover:bg-green-600",
+      color: "from-green-500 to-green-600 hover:from-green-600 hover:to-green-700",
+      bgGlow: "shadow-green-500/40 hover:shadow-green-500/60"
     },
     {
-      icon: <Phone size={24} />,
+      icon: <Phone size={18} />,
       label: "Call Us",
       href: "tel:+1234567890",
-      color: "bg-blue-500 hover:bg-blue-600",
+      color: "from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700",
+      bgGlow: "shadow-blue-500/40 hover:shadow-blue-500/60"
     },
     {
-      icon: <Mail size={24} />,
+      icon: <Mail size={18} />,
       label: "Email Us",
       href: "mailto:hello@agency.com",
-      color: "bg-purple-500 hover:bg-purple-600",
+      color: "from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700",
+      bgGlow: "shadow-purple-500/40 hover:shadow-purple-500/60"
     },
     {
-      icon: <MessageCircle size={24} />,
+      icon: <MessageCircle size={18} />,
       label: "Live Chat",
       href: "#",
-      color: "bg-orange-500 hover:bg-orange-600",
+      color: "from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700",
+      bgGlow: "shadow-orange-500/40 hover:shadow-orange-500/60"
     },
   ];
 
@@ -50,19 +54,26 @@ const FloatingContactWidget = () => {
                 href={contact.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{ x: -8, scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-3"
+                transition={{ delay: index * 0.08 }}
+                whileHover={{ x: -10, scale: 1.05 }}
+                whileTap={{ scale: 0.96 }}
+                className="flex items-center gap-3 cursor-pointer group"
               >
-                <span className="px-4 py-2 bg-black/80 backdrop-blur-xl border border-white/10 rounded-full text-sm font-medium text-white shadow-lg">
+                <motion.span
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="px-4 py-2 bg-gradient-to-r from-gray-900/95 to-black/95 backdrop-blur-xl border border-white/15 rounded-full text-xs font-semibold text-white shadow-xl hidden sm:block"
+                >
                   {contact.label}
-                </span>
-                <div className={`w-12 h-12 ${contact.color} rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300`}>
+                </motion.span>
+                <motion.div
+                  whileHover={{ rotate: 5 }}
+                  className={`w-11 h-11 bg-gradient-to-br ${contact.color} rounded-full flex items-center justify-center text-white shadow-lg ${contact.bgGlow} transition-all duration-300 border border-white/20`}
+                >
                   {contact.icon}
-                </div>
+                </motion.div>
               </motion.a>
             ))}
           </motion.div>
@@ -71,11 +82,24 @@ const FloatingContactWidget = () => {
 
       <motion.button
         whileHover={{ scale: 1.1, rotate: 90 }}
-        whileTap={{ scale: 0.9 }}
+        whileTap={{ scale: 0.92 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center text-white shadow-2xl shadow-red-500/50 border-4 border-white/10"
+        className="w-14 h-14 bg-gradient-to-br from-red-500 via-red-600 to-orange-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-red-500/50 border-3 border-white/20 relative overflow-hidden group"
       >
-        {isOpen ? <X size={32} /> : <MessageSquare size={32} />}
+        <div className="absolute inset-0 bg-pattern-grid opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/12 to-transparent animate-pulse" />
+        <motion.div
+          animate={{
+            rotate: isOpen ? 180 : 0
+          }}
+          transition={{ duration: 0.3 }}
+          className="relative z-10"
+        >
+          {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
+        </motion.div>
+        <div className="absolute -top-1 -right-1">
+          <Sparkles size={14} className="text-yellow-300 animate-ping" />
+        </div>
       </motion.button>
     </div>
   );

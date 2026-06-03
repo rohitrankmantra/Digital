@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 
 interface SectionHeadingProps {
@@ -19,10 +20,10 @@ export default function SectionHeading({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className={centered ? "text-center max-w-3xl mx-auto mb-16" : "mb-12"}
+      className={centered ? "text-center max-w-3xl mx-auto mb-16" : "mb-12"}    
     >
       {subtitle && (
-        <p className="text-accent-blue font-semibold text-sm uppercase tracking-wider mb-3">
+        <p className="text-red-400 font-semibold text-sm uppercase tracking-wider mb-3">
           {subtitle}
         </p>
       )}

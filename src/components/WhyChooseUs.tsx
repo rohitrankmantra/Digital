@@ -56,7 +56,7 @@ export default function WhyChooseUs() {
               transition={{ delay: index * 0.1 }}
               className="text-center p-6"
             >
-              <h3 className="text-5xl md:text-6xl font-black text-white mb-2">
+              <h3 className="text-3xl md:text-4xl font-black text-white mb-2">
                 {stat.number}
                 <span className="text-red-400 ml-1">{stat.suffix}</span>
               </h3>
@@ -108,15 +108,15 @@ export default function WhyChooseUs() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-red-400 font-semibold text-sm uppercase tracking-widest mb-4">
+            <p className="text-red-400 font-semibold text-xs uppercase tracking-[0.28em] mb-4">
               ( WHY CHOOSE US )
             </p>
-            <h2 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-black mb-6 leading-tight">
               Proven Strategies And
               <br />
               <span className="gradient-text">Business</span> Growth
             </h2>
-            <p className="text-gray-400 text-lg mb-10 leading-relaxed">
+            <p className="text-gray-400 text-base mb-10 leading-relaxed">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
             </p>
 

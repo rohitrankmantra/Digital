@@ -36,9 +36,9 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5rem] font-black leading-[0.92] mb-6 max-w-4xl"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.8rem] xl:text-[4.2rem] font-black leading-[0.92] mb-6 max-w-4xl"
             >
-              <span className="block text-white/80 text-lg md:text-xl font-semibold tracking-[0.3em] uppercase mb-5">
+              <span className="block text-white/80 text-sm md:text-base font-semibold tracking-[0.28em] uppercase mb-5">
                 Strategy, design, growth
               </span>
               We Build Brands That
@@ -50,7 +50,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed"
+              className="text-base md:text-lg text-gray-300 mb-8 max-w-2xl leading-relaxed"
             >
               Premium digital marketing solutions combining cinematic design, performance-led SEO, and conversion-focused storytelling so your brand feels bigger from the first click.
             </motion.p>
@@ -61,13 +61,13 @@ const Hero = () => {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 mb-12"
             >
-              <button className="group px-8 py-4 rounded-full bg-gradient-to-r from-red-500 via-red-600 to-orange-500 text-white font-bold text-lg hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300 flex items-center gap-3 glow-red border border-white/10">
+              <button className="group px-7 py-3.5 rounded-full bg-gradient-to-r from-red-500 via-red-600 to-orange-500 text-white font-bold text-base hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300 flex items-center gap-3 glow-red border border-white/10">
                 Get Free Audit
                 <motion.div whileHover={{ x: 5 }} className="w-5 h-5">
-                  <ArrowRight size={20} />
+                  <ArrowRight size={18} />
                 </motion.div>
               </button>
-              <button className="px-8 py-4 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 text-white font-bold text-lg transition-all duration-300 backdrop-blur-xl">
+              <button className="px-7 py-3.5 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 text-white font-bold text-base transition-all duration-300 backdrop-blur-xl">
                 Book Consultation
               </button>
             </motion.div>
