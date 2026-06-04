@@ -312,6 +312,9 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
             
+            <Link href="/blog" className="rounded-full px-5 py-2.5 text-gray-200 hover:text-white hover:bg-white/10 transition-all font-[Montserrat] font-semibold">
+              Blog
+            </Link>
             <Link href="/contact" className="rounded-full px-5 py-2.5 text-gray-200 hover:text-white hover:bg-white/10 transition-all font-[Montserrat] font-semibold">
               Contact
             </Link>
@@ -468,6 +471,13 @@ export default function Navbar() {
                     </AnimatePresence>
                   </div>
                   
+                  <Link 
+                    href="/blog" 
+                    onClick={() => setIsOpen(false)}
+                    className="block rounded-xl px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition-all font-[Montserrat] font-medium"
+                  >
+                    Blog
+                  </Link>
                   <Link 
                     href="/contact" 
                     onClick={() => setIsOpen(false)}
